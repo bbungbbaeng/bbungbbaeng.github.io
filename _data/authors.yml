@@ -1,4 +1,17 @@
-<author_id>:
-  name: <bbungbbaeng>
-  twitter: <twitter_of_author>
-  url: <homepage_of_author>
+## Template › https://github.com/jekyll/jekyll-seo-tag/blob/master/docs/advanced-usage.md#setting-author-url
+# -------------------------------------
+# {author_id}:
+#   name: {full name}
+#   twitter: {twitter_of_author}
+#   url: {homepage_of_author}
+# -------------------------------------
+
+bbungbbaeng:
+  name: bbungbbaeng
+  twitter: -
+  url: https://github.com/bbungbbaeng/
+
+sille_bille:
+  name: Dinesh Prasanth Moluguwan Krishnamoorthy
+  twitter: dinesh_MKD
+  url: https://github.com/SilleBille/
