@@ -670,3 +670,73 @@ for (let prop in user) {
 
 ## **메서드와 this**
 
+객체는 사용자(user), 주문(order)와 같이 실제 존재하는 개체(entity)를 표현하고자 할 때 생성된다. 사용자는 현실에서도 장바구니에 담기, 물건 선택하기, 로그인하기 등의 행동을 한다. 이와 마찬가지로 사용자를 나타내는 객체도 특정한 행동을 할 수 있다.
+
+<br>
+
+자바스크립트에서는 객체의 속성에 함수를 할당해 객체에게 행동할 수 있는 능력을 부여해준다.
+
+<br>
+
+### **메서드 생성**
+
+```bash
+let user = {
+    name: "Yumin",
+    age: 25
+};
+
+user.sayGang = function() {
+    alert("GANG");
+};
+
+user.sayGang(); // GANG
+```
+
+함수 표현식으로 함수를 만들고, 객체 속성 `user.sayGang`에 함수를 할당해주었다. 이렇게 객체 속성에 할당된 함수를 **메서드(method)**라고 부른다. 
+
+<br>
+
+메서드는 아래와 같이 이미 정의된 함수를 이용해서 만들 수도 있다.
+
+```bash
+let user = {
+    name: "Yumin",
+    age: 25
+};
+
+function sayGang() {
+    alert("GANG");
+}
+
+// 선언된 함수를 메서드로 등록
+user.sayGang = sayGang;
+
+user.sayGang(); // GANG
+```
+
+<br>
+
+### **메서드 단축 구문**
+
+```bash
+// 아래 두 객체는 동일하게 작동한다.
+user = {
+    sayGang: function() {
+        alert("GANG");
+    }
+};
+
+user = {
+    sayGang() {     // "sayGang: function()"과 동일
+        alert("GANG");
+    }
+};
+```
+
+위처럼 `function`을 생략해도 메서드를 정의할 수 있다.
+
+<br>
+
+### **this**
+
