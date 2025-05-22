@@ -566,5 +566,104 @@ alert(obj.__proto__); // [object Object]
 
 <br>
 
-### **`in` 연산자로 속성 존재 여부 확인하기**
+### **in 연산자로 속성 존재 여부 확인하기**
 
+자바스크립트 객체의 중요한 특징 중 하나는, 다른 언어와 달리 존재하지 않는 속성에 접근하려 해도 에러가 발생하지 않고 `undefined`를 반환한다는 것이다.  
+
+<br>
+
+이런 특징을 응용하면 속성 존재 여부를 쉽게 확인할 수 있다.
+
+```bash
+let user = {};
+
+alert(user.noSuchProperty === undefined); // true
+```
+
+<br>
+
+이렇게 `undefined`와 비교하는 것 이외에도 연산자 `in`을 사용하면 속성 존재 여부를 확인할 수 있다.
+
+```bash
+let user = {name: "Yumin", age: 25}
+
+alert("age" in user);   // true
+alert("gang" in user);  // false
+```
+
+`in` 왼쪽에는 반드시 속성 이름이 와야 한다. 
+
+<br>
+
+대부분의 경우, 일치 연산자를 사용해서 속성 존재 여부를 알아내는 방법(`=== undefined`)은 잘 동작하지만, 가끔은 이 방법이 실패할 때가 존재한다. 이럴 때 `in`을 사용하면 속성 존재 여부를 판별할 수 있다.
+
+```bash
+let obj = {
+    test: undefined
+};
+
+alert(obj.test); // 값이 'undefined'이므로, alert 창에는 undefined가 출력된다. 그러나 속성 test는 존재한다.
+alert("test" in obj); // true
+```
+
+`obj.test`는 실제 존재하는 속성이다. 따라서 `in` 연산자는 정상적으로 `true`를 반환한다.
+
+<br>
+
+### **for.. in 반복문**
+
+`for.. in` 반복문을 사용하면 객체의 모든 키를 순회할 수 있다.
+
+```bash
+let user = {
+    name: "Yumin",
+    age: 25,
+    isAdmin: true
+};
+
+for (let key in user) {
+    alert(key);         // name, age, isAdmin
+    alert(user[key]);   // Yumin, 25, true
+}
+```
+
+위의 코드를 실행하면 객체 `user`의 모든 속성이 출력된다. 여기서, 반복 변수(looping variable)을 선언(`let key`)했다는 점에 주의해야 한다.
+
+<br>
+
+### **객체 정렬 방식**
+
+자바스크립트에서 객체는 '특별한 방식'으로 정렬된다. 정수 속성은 자동으로 정렬되고, 그 외의 속성은 객체에 추가한 순서 그대로 정렬된다.
+
+```bash
+let codes = {
+    "82": "한국",
+    "1": "미국",
+    "81": "일본",
+    "86": "중국" 
+};
+
+for (let code in codes) {
+    alert(code); // 1, 81, 82, 86
+}
+```
+
+<br>
+
+반면, 키가 정수가 아닌 경우에는 작성된 순서대로 속성이 나열된다.
+
+```bash
+let user = {
+    name: "Yumin",
+    surname: "bbungbbaeng",
+    age: 25
+};
+
+for (let prop in user) {
+    alert(prop); // name, surname, age
+}
+```
+
+<br>
+
+## **메서드와 this**
