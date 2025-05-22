@@ -1,6 +1,6 @@
 ---
 title: JavaScript 개념 정리
-description: 함수 표현식, 화살표 함수, 객체 등..
+description: 함수, 객체, 클래스 등..
 author: bbungbbaeng
 date: 2025-05-21 12:22:00 +0900
 categories: [Front-End, JavaScript]
@@ -10,7 +10,7 @@ math: true
 mermaid: true
 ---
 
-해당 포스트에서는 JavaScript의 다양한 내용들을 정리해놓았다.  
+해당 포스트에서는 JavaScript의 개념 및 내용들을 정리해놓았다.  
 보면서 복습하도록 하자.  
 
 ## **함수 표현식**
