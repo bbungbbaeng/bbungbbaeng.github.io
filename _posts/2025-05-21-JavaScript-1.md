@@ -1,5 +1,5 @@
 ---
-title: JavaScript 상식 정리
+title: JavaScript 개념 정리
 description: 함수 표현식, 화살표 함수, 객체 등..
 author: bbungbbaeng
 date: 2025-05-21 12:22:00 +0900
@@ -669,3 +669,4 @@ for (let prop in user) {
 <br>
 
 ## **메서드와 this**
+
