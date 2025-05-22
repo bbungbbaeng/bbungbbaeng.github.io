@@ -164,8 +164,8 @@ act2(); // 창렬이네요.
 let price = prompt("국밥의 가격을 알려주세요: ");
 
 let act = (price < 5000) ?
-    function() { alert("혜자네요."); } :
-    function() { alert("창렬이네요."); };
+    function() {alert("혜자네요.");} :
+    function() {alert("창렬이네요.");};
 
 act(); // 제대로 동작한다.
 ```
@@ -212,8 +212,8 @@ function ask(question, yes, no) {
 
 ask(
     "다크 모드를 활성화하시겠습니까?",
-    function() { alert("다크 모드가 적용되었습니다."); },
-    function() { alert("라이트 모드로 전환되었습니다."); }
+    function() {alert("다크 모드가 적용되었습니다.");},
+    function() {alert("라이트 모드로 전환되었습니다.");}
 );
 ```
 
@@ -269,8 +269,8 @@ let gang = () => alert("GANG");
 let price = prompt("국밥의 가격을 알려주세요: ");
 
 let act = (price < 5000) ?
-    () => { alert("혜자네요."); } :
-    () => { alert("창렬이네요."); };
+    () => {alert("혜자네요.");} :
+    () => {alert("창렬이네요.");};
 
 act();
 ```
@@ -398,4 +398,173 @@ let user = {
 <br>
 
 ### **대괄호 표기법**
+
+여러 단어를 조합해 속성 키를 만든 경우, 점 표기법을 사용하여 속성 값을 읽을 수 없다.
+
+```bash
+// 문법 오류 발생
+user.so dumb = true
+```
+
+점 표기법은 키가 '유효한 식별자'인 경우에만 사용할 수 있고, 유효한 식별자에는 공백이 없어야 한다. 또한, 숫자로 시작하지 않아야 하며 `$`와 `_`를 제외한 특수문자가 없어야 한다.
+
+<br>
+
+키가 유효한 변수 식별자가 아닌 경우에는 점 표기법 대신 '대괄호 표기법(square bracket notation)'을 사용할 수 있다. 대괄호 표기법은 키에 어떤 문자열이 있던지 상관없이 동작한다.
+
+```bash
+let user = {}
+
+// set
+user["so dumb"] = true;
+
+// get
+alert(user["so dumb"]); // true
+
+// delete
+delete user["so dumb"];
+```
+
+대괄호 표기법 안에서 문자열을 사용할 때는 문자열을 따옴표로 묶어줘야 한다는 점을 주의해야 한다.
+
+<br>
+
+대괄호 표기법을 사용하면 문자열 뿐만 아니라 모든 표현식의 평가 결과를 속성 키로 사용할 수 있다.
+
+```bash
+let key = "so dumb";
+
+user[key] = true;
+```
+
+<br>
+
+이를 응용하면 코드를 유연하게 작성할 수 있다.
+
+```bash
+let user = {
+    name: "Yumin",
+    age: 25
+};
+
+let key = prompt("뭐가 궁금해", "name / age");
+
+// 변수로 접근
+alert(user[key]);
+```
+
+<br>
+
+### **계산된 속성명**
+
+객체를 만들 때, 객체 리터럴 안에 속성 키가 대괄호로 둘러싸여 있는 경우 이를 **계산된 속성명(computed property name)**라고 부른다.
+
+```bash
+let drink = prompt("어떤 음료를 구매하시겠습니까?");
+
+let bag = {
+    [drink]: 3,
+};
+
+alert(bag.soju); // drink에 "soju"가 할당되었다면 3이 출력된다.
+```
+
+위의 예시에서 `[soju]`는 속성 이름을 변수 `drink`에서 가져오겠다는 것을 의미한다. 사용자가 프롬프트 대화창에 `soju`를 입력했다면, `bag`에는 `{soju: 3}`이 할당되었을 것이다.
+
+<br>
+
+대괄호 표기법을 사용한다면 아래와 같은 표현식도 가능하다.
+
+```bash
+let drink = 'soju';
+let bag = {
+    [soju + "beer"]: 5      // bag.sojubeer = 5
+};
+```
+
+### **단축 속성명**
+
+```bash
+function makeUser(name, age) {
+    return {
+        name: name,
+        age: age,
+    };
+}
+
+let user = makeUser("Yumin", 25);
+alert(user.name); // Yumin
+```
+
+위 예시의 속성들은 이름과 값이 변수의 이름과 동일하다. 이렇게 변수를 사용해 속성을 만드는 경우, **단축 속성명(property shorthand)**을 사용하면 코드를 짧게 줄일 수 있다.
+
+<br>
+
+`name: name` 대신 `name`만 적어주어도 속성을 설정할 수 있다.
+
+```bash
+function makeUser(name, age) {
+    return {
+        name,   // name: name과 동일
+        age,    // age: age와 동일
+    };
+}
+```
+
+<br>
+
+한 객체에서 일반 속성과 단축 속성을 함께 사용하는 것도 가능하다.
+
+```bash
+let user = {
+    name,
+    age: 30,
+};
+```
+
+<br>
+
+### **속성 이름의 제약사항**
+
+변수 이름(키)에는 `for`, `let`, `return`과 같은 예약어를 사용하면 안되지만, 객체 속성에는 이런 제약이 없다.
+
+```bash
+let obj = {
+    for: 1,
+    let: 2,
+    return: 3,
+};
+
+alert(obj.for + obj.let + obj.return); // 6
+```
+
+<br>
+
+이와 같이 속성 이름에는 특별한 제약이 없다. 어떤 문자형, 심볼형 값도 속성 키가 될 수 있고, 문자형이나 심볼형에 속하지 않는 값들은 문자열로 자동 형 변환된다.
+
+```bash
+let obj = {
+    0: "test"
+};
+
+// 숫자 0은 문자열 "0"으로 변환되기 때문에 두 alert는 같은 속성에 접근한다.
+alert(obj["0"]); // test
+alert(obj[0]); // test
+```
+
+<br>
+
+이와 같이, 객체 속성 키에 쓸 수 있는 문자열에는 제약이 없지만, `__proto__`라는 예외가 존재한다.
+
+```bash
+let obj = {};
+obj.__proto__ = 5;
+alert(obj.__proto__); // [object Object]
+```
+
+원시값 `5`를 할당했는데도 무시된 것을 확인할 수 있다.
+
+<br>
+
+### **`in` 연산자로 속성 존재 여부 확인하기**
 
