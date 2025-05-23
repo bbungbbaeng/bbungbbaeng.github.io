@@ -18,7 +18,7 @@ mermaid: true
   
 먼저, 함수 선언을 통해 함수를 만들어보자.
 
-```bash
+```javascript
 function gang() {
     alert("GANG");
 }
@@ -47,7 +47,7 @@ let gang = function() {
 >     // ...
 > }
 > 
-> let gang() = function() {
+> let gang = function() {
 >     // ...
 > };
 > ```
@@ -244,9 +244,6 @@ alert(sum(1, 2)); // 3
 
 인수가 하나밖에 없다면, 인수를 감싸는 괄호를 생략할 수 있다.
 ```bash
-let sum = (a, b) => a + b;
-
-/*
 let double = n => n * 2;
 
 alert(double(3)); // 6
