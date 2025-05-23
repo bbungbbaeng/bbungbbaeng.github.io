@@ -455,6 +455,8 @@ element.addEventListener(event, handler, [options]);
 element.removeEventListener(event, handler, [options]);
 ```
 
+<br>
+
 > **삭제는 동일한 함수만 할 수 있다.**
 >
 > 핸들러를 삭제하려면 핸들러 할당 시 사용한 함수를 그대로 전달해주어야 한다.
