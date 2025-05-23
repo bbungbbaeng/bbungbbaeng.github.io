@@ -224,3 +224,5 @@ jekyll-archives:
   permalinks:
     tag: /tags/:name/
     category: /categories/:name/
+
+google_drive: https://drive.google.com/thumbnail?id=
