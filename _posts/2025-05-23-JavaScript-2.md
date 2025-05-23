@@ -49,7 +49,7 @@ alert(window.innerHeight);  // 창 내부(inner window) 높이
 
 ### **문서 객체 모델(DOM)**
 
-**문서 객체 모델(Document Object Model, DOM)**은 웹 페이지 내의 모든 컨텐츠를 객체로 나타내준다.  
+**문서 객체 모델(Document Object Model, DOM)**은 웹 페이지 내의 모든 콘텐츠를 객체로 나타내준다.  
 
 `document` 객체는 페이지의 '기본 진입점' 역할을 한다. `document` 객체를 이용해 페이지 내 그 무엇이든 변경할 수 있고, 원하는 것을 만들 수도 있다.
 
@@ -335,4 +335,38 @@ DOM 속성 `on<event>`를 사용해도 핸들러를 할당할 수 있다.
 <br>
 
 ### **this로 요소에 접근하기**
+
+핸들러 내부에 쓰인 `this`의 값은 핸들러가 할당된 요소이다.
+
+아래 예시의 `this.innerHTML`에서 `this`는 `button`이므로, 버튼을 클릭하면 버튼 안의 콘텐츠가 `alert` 창에 출력된다.
+
+```bash
+<button onclick="alert(this.innerHTML)">클릭해주세요.</button>
+```
+
+<br>
+
+### **자주 하는 실수**
+
+이벤트를 다룰 때는 아래 주의사항을 항상 염두에 두어야 한다.
+
+이미 존재하는 함수를 직접 핸들러에 할당하는 예시를 살펴보자.
+
+```bash
+function sayGang() {
+    alert('GANG');
+}
+
+elem.onclick = sayGang;
+```
+
+이 때 함수는 `sayGang`처럼 할당해야 한다. `sayGang()`을 할당하면 동작하지 않는다.
+
+```bash
+// 올바른 방법
+button.onclick = sayGang;
+
+// 틀린 방법
+button.onclick = sayGang();
+```
 
