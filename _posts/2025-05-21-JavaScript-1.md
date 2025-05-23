@@ -29,7 +29,7 @@ function gang() {
 함수 선언 방식 이외에, *함수 표현식(Function Expression)*을 사용해서 함수를 만들 수 있다.
 함수 표현식을 통해 함수를 만들어보자.  
 
-```bash
+```javascript
 let gang = function() {
     alert("GANG");
 }
@@ -42,7 +42,7 @@ let gang = function() {
 자바스크립트에서 함수는 값이기 때문에 `alert`를 통해 함수 코드를 출력할 수도 있고, 변수를 복사해 다른 변수에 할당하는 것처럼 함수를 복사해 다른 변수에 할당할 수도 있다.  
 
 > **왜 함수 표현식의 끝에 세미콜론 `;`이 붙을까?**
-> ```bash
+> ```javascript
 > function gang() {
 >     // ...
 > }
@@ -64,7 +64,7 @@ let gang = function() {
 ### **문법의 차이**
 
 - 함수 선언문 : 주요 코드 흐름 중간에 독자적인 구문 형태로 존재
-```bash
+```javascript
 // 함수 선언문
 function sum(a, b) {
     return a + b;
@@ -74,7 +74,7 @@ function sum(a, b) {
 <br>
 
 - 함수 표현식 : 표현식이나 구문 구성 내부에 생성
-```bash
+```javascript
 // 함수 표현식
 let sum = function(a, b) {
     return a + b;
@@ -91,7 +91,7 @@ let sum = function(a, b) {
   
 
 즉, 스크립트 어디서든 함수 선언문으로 선언한 함수에 접근할 수 있는 것이다.
-```bash
+```javascript
 gang(); // GANG
 
 function gang() {
@@ -103,7 +103,7 @@ function gang() {
 
 - 함수 표현식은 실제 실행 흐름이 해당 함수에 도달했을 때 함수를 생성
 
-```bash
+```javascript
 gang(); // error!
 
 let gang = function() {
@@ -117,7 +117,7 @@ let gang = function() {
 
 - 코드 블록 내 위치한 함수 선언문은 블록 내 어디서든 접근할 수 있으나, 블록 밖에서는 함수에 접근 불가
 
-```bash
+```javascript
 let price = prompt("국밥의 가격을 알려주세요: ");
 
 if (price < 5000) {
@@ -138,7 +138,7 @@ act2(); // Error: act2 is not defined
 
 - 함수 표현식은 블록 밖에서도 접근 가능
 
-```bash
+```javascript
 let price = prompt("국밥의 가격을 알려주세요: ");
 
 if (price < 5000) {
@@ -159,7 +159,7 @@ act2(); // 창렬이네요.
 
 물음표 연산자 `?`를 사용하면 위의 함수 표현식 코드를 아래와 같이 단순화할 수 있다.
 
-```bash
+```javascript
 let price = prompt("국밥의 가격을 알려주세요: ");
 
 let act = (price < 5000) ?
@@ -174,7 +174,7 @@ act(); // 제대로 동작한다.
 
 매개변수 3개가 있는 함수 `ask(question, yes, no)`를 작성해보자.
 
-```bash
+```javascript
 function ask(question, yes, no) {
     if (confirm(question)) yes();
     else no(); 
@@ -203,7 +203,7 @@ ask("다크 모드를 활성화하시겠습니까?", enableDarkMode, disableDark
 
 아래와 같이 함수 표현식을 사용하면 코드 길이가 짧아진다.
 
-```bash
+```javascript
 function ask(question, yes, no) {
     if (confirm(question)) yes();
     else no();
@@ -226,7 +226,7 @@ ask(
 
 함수 표현식보다 단순하고 간결한 방법으로 함수를 만들 수 있다. 바로 **화살표 함수(arrow function)**을 사용하는 것이다.  
 
-```bash
+```javascript
 let sum = (a, b) => a + b;
 
 /*
@@ -243,7 +243,7 @@ alert(sum(1, 2)); // 3
 <br>
 
 인수가 하나밖에 없다면, 인수를 감싸는 괄호를 생략할 수 있다.
-```bash
+```javascript
 let double = n => n * 2;
 
 alert(double(3)); // 6
@@ -253,7 +253,7 @@ alert(double(3)); // 6
 
 인수가 하나도 없을 땐, 괄호를 비워놓으면 된다. 다만, 이 때 괄호를 생략할 수는 없다.
 
-```bash
+```javascript
 let gang = () => alert("GANG");
 ```
 
@@ -261,7 +261,7 @@ let gang = () => alert("GANG");
 
 화살표 함수는 함수 표현식과 같은 방법으로 사용할 수 있는데, 아래 예시와 같이 함수를 동적으로 만들 수 있다.
 
-```bash
+```javascript
 let price = prompt("국밥의 가격을 알려주세요: ");
 
 let act = (price < 5000) ?
@@ -277,7 +277,7 @@ act();
 
 평가해야 할 표현식이나 구문이 여러 개인 경우 중괄호 안에 코드를 넣어주어야 한다. 그리고 `return` 지시자를 사용해 명시적으로 결과값을 반환해 주어야 한다.
 
-```bash
+```javascript
 let sum = (a, b) => {
     let result = a + b;
     return result;
@@ -312,7 +312,7 @@ alert(sum(1, 2)); // 3
 
 빈 객체를 만드는 방법은 두 가지가 있다.  
 
-```bash
+```javascript
 let user = new Object();    // '객체 생성자' 문법
 let user = {};              // '객체 리터럴' 문법
 ```
@@ -323,7 +323,7 @@ let user = {};              // '객체 리터럴' 문법
 
 중괄호 `{...}` 안에는 '`키(key) : 값(value)`' 쌍으로 구성된 속성이 들어간다.
 
-```bash
+```javascript
 let user = {        // 객체
     name: "Yumin",  // 키: "name", 값: "Yumin"
     age: 25         // 키: "age", 값: 25
@@ -336,7 +336,7 @@ let user = {        // 객체
 
 점 표기법(dot notation)을 이용하면 속성 값을 읽을 수 있다.
 
-```bash
+```javascript
 // 속성 값 얻기
 alert(user.name);   // Yumin
 alert(user.age);    // 25
@@ -346,7 +346,7 @@ alert(user.age);    // 25
 
 `delete` 연산자를 이용하면 속성을 삭제할 수 있다.
 
-```bash
+```javascript
 delete user.age;
 ```
 
@@ -354,7 +354,7 @@ delete user.age;
 
 여러 단어를 조합해 속성 이름을 만든 경우엔 속성 이름을 따옴표로 묶어줘야 한다.
 
-```bash
+```javascript
 let user = {
     name: "Yumin",
     age: 25,
@@ -366,7 +366,7 @@ let user = {
 
 마지막 속성의 끝은 쉼표로 끝날 수 있다. 이런 쉼표를 'trailing(길게 늘어지는)' 또는 'hanging(매달리는)' 쉼표라고 부른다.
 
-```bash
+```javascript
 let user = {
     name: "Yumin",
     age: 25,
@@ -377,7 +377,7 @@ let user = {
 
 > **상수 객체는 수정될 수 있다.**  
 > `const`로 선언된 객체는 수정될 수 있다.
-> ```bash
+> ```javascript
 > const user = {
 >    name: "Yumin"
 >};
@@ -397,7 +397,7 @@ let user = {
 
 여러 단어를 조합해 속성 키를 만든 경우, 점 표기법을 사용하여 속성 값을 읽을 수 없다.
 
-```bash
+```javascript
 // 문법 오류 발생
 user.so dumb = true
 ```
@@ -408,7 +408,7 @@ user.so dumb = true
 
 키가 유효한 변수 식별자가 아닌 경우에는 점 표기법 대신 '대괄호 표기법(square bracket notation)'을 사용할 수 있다. 대괄호 표기법은 키에 어떤 문자열이 있던지 상관없이 동작한다.
 
-```bash
+```javascript
 let user = {}
 
 // set
@@ -427,7 +427,7 @@ delete user["so dumb"];
 
 대괄호 표기법을 사용하면 문자열 뿐만 아니라 모든 표현식의 평가 결과를 속성 키로 사용할 수 있다.
 
-```bash
+```javascript
 let key = "so dumb";
 
 user[key] = true;
@@ -437,7 +437,7 @@ user[key] = true;
 
 이를 응용하면 코드를 유연하게 작성할 수 있다.
 
-```bash
+```javascript
 let user = {
     name: "Yumin",
     age: 25
@@ -455,7 +455,7 @@ alert(user[key]);
 
 객체를 만들 때, 객체 리터럴 안에 속성 키가 대괄호로 둘러싸여 있는 경우 이를 **계산된 속성명(computed property name)**라고 부른다.
 
-```bash
+```javascript
 let drink = prompt("어떤 음료를 구매하시겠습니까?");
 
 let bag = {
@@ -471,7 +471,7 @@ alert(bag.soju); // drink에 "soju"가 할당되었다면 3이 출력된다.
 
 대괄호 표기법을 사용한다면 아래와 같은 표현식도 가능하다.
 
-```bash
+```javascript
 let drink = 'soju';
 let bag = {
     [soju + "beer"]: 5      // bag.sojubeer = 5
@@ -482,7 +482,7 @@ let bag = {
 
 ### **단축 속성명**
 
-```bash
+```javascript
 function makeUser(name, age) {
     return {
         name: name,
@@ -500,7 +500,7 @@ alert(user.name); // Yumin
 
 `name: name` 대신 `name`만 적어주어도 속성을 설정할 수 있다.
 
-```bash
+```javascript
 function makeUser(name, age) {
     return {
         name,   // name: name과 동일
@@ -513,7 +513,7 @@ function makeUser(name, age) {
 
 한 객체에서 일반 속성과 단축 속성을 함께 사용하는 것도 가능하다.
 
-```bash
+```javascript
 let user = {
     name,
     age: 30,
@@ -526,7 +526,7 @@ let user = {
 
 변수 이름(키)에는 `for`, `let`, `return`과 같은 예약어를 사용하면 안되지만, 객체 속성에는 이런 제약이 없다.
 
-```bash
+```javascript
 let obj = {
     for: 1,
     let: 2,
@@ -540,7 +540,7 @@ alert(obj.for + obj.let + obj.return); // 6
 
 이와 같이 속성 이름에는 특별한 제약이 없다. 어떤 문자형, 심볼형 값도 속성 키가 될 수 있고, 문자형이나 심볼형에 속하지 않는 값들은 문자열로 자동 형 변환된다.
 
-```bash
+```javascript
 let obj = {
     0: "test"
 };
@@ -554,7 +554,7 @@ alert(obj[0]); // test
 
 이와 같이, 객체 속성 키에 쓸 수 있는 문자열에는 제약이 없지만, `__proto__`라는 예외가 존재한다.
 
-```bash
+```javascript
 let obj = {};
 obj.__proto__ = 5;
 alert(obj.__proto__); // [object Object]
@@ -572,7 +572,7 @@ alert(obj.__proto__); // [object Object]
 
 이런 특징을 응용하면 속성 존재 여부를 쉽게 확인할 수 있다.
 
-```bash
+```javascript
 let user = {};
 
 alert(user.noSuchProperty === undefined); // true
@@ -582,7 +582,7 @@ alert(user.noSuchProperty === undefined); // true
 
 이렇게 `undefined`와 비교하는 것 이외에도 연산자 `in`을 사용하면 속성 존재 여부를 확인할 수 있다.
 
-```bash
+```javascript
 let user = {name: "Yumin", age: 25}
 
 alert("age" in user);   // true
@@ -595,7 +595,7 @@ alert("gang" in user);  // false
 
 대부분의 경우, 일치 연산자를 사용해서 속성 존재 여부를 알아내는 방법(`=== undefined`)은 잘 동작하지만, 가끔은 이 방법이 실패할 때가 존재한다. 이럴 때 `in`을 사용하면 속성 존재 여부를 판별할 수 있다.
 
-```bash
+```javascript
 let obj = {
     test: undefined
 };
@@ -612,7 +612,7 @@ alert("test" in obj); // true
 
 `for.. in` 반복문을 사용하면 객체의 모든 키를 순회할 수 있다.
 
-```bash
+```javascript
 let user = {
     name: "Yumin",
     age: 25,
@@ -633,7 +633,7 @@ for (let key in user) {
 
 자바스크립트에서 객체는 '특별한 방식'으로 정렬된다. 정수 속성은 자동으로 정렬되고, 그 외의 속성은 객체에 추가한 순서 그대로 정렬된다.
 
-```bash
+```javascript
 let codes = {
     "82": "한국",
     "1": "미국",
@@ -650,7 +650,7 @@ for (let code in codes) {
 
 반면, 키가 정수가 아닌 경우에는 작성된 순서대로 속성이 나열된다.
 
-```bash
+```javascript
 let user = {
     name: "Yumin",
     surname: "bbungbbaeng",
@@ -672,7 +672,7 @@ for (let prop in user) {
 
 ### **메서드 생성**
 
-```bash
+```javascript
 let user = {
     name: "Yumin",
     age: 25
@@ -691,7 +691,7 @@ user.sayGang(); // GANG
 
 메서드는 아래와 같이 이미 정의된 함수를 이용해서 만들 수도 있다.
 
-```bash
+```javascript
 let user = {
     name: "Yumin",
     age: 25
@@ -711,7 +711,7 @@ user.sayGang(); // GANG
 
 ### **메서드 단축 구문**
 
-```bash
+```javascript
 // 아래 두 객체는 동일하게 작동한다.
 user = {
     sayGang: function() {
@@ -734,7 +734,7 @@ user = {
 
 메서드 내부에서 `this` 키워드를 사용하면 객체에 접근할 수 있다. 이 때, '점(.) 앞'의 `this`는 메서드를 호출할 때 사용된 객체를 나타낸다.
 
-```bash
+```javascript
 let user = {
     name: "Yumin",
     age: 25
@@ -752,7 +752,7 @@ user.sayName(); // Yumin
 
 `this`를 사용하지 않고 외부 변수를 참조해 객체에 접근하는 것도 가능하다.
 
-```bash
+```javascript
 let user = {
     name: "Yumin",
     age: 25
@@ -768,7 +768,7 @@ let user = {
 
 그러나, 외부 변수를 사용해 객체를 참조하면 예상치 못한 에러가 발생할 수 있다. `user`를 복사해 다른 변수에 할당(`admin = user`)하고, `user`는 전혀 다른 값으로 덮어썼다고 가정해보자.
 
-```bash
+```javascript
 let user = {
     name: "Yumin",
     age: 25
@@ -792,7 +792,7 @@ admin.sayName();    // 에러 발생
 
 자바스크립트에서는 다른 프로그래밍 언어와 달리 모든 함수에 `this`를 사용할 수 있다. 그렇기 때문에 아래와 같이 코드를 작성해도 문법 에러가 발생하지 않는다.
 
-```bash
+```javascript
 function sayName() {
     alert(this.name);
 }
@@ -802,7 +802,7 @@ function sayName() {
 
 동일한 함수라도 다른 객체에서 호출했다면 `this`가 참조하는 값이 달라진다.
 
-```bash
+```javascript
 let user = {name: "Yumin"};
 let admin = {name: "bbungbbaeng"};
 
@@ -825,7 +825,7 @@ admin.f();  // bbungbbaeng (this == admin)
 
 화살표 함수는 일반 함수와 달리 '고유한' `this`를 가지지 않는다. 화살표 함수에서 `this`를 참조하면, 화살표 함수가 아닌 '평범한' 외부 함수에서 `this` 값을 가져온다. 아래 예시에서 함수 `arrow()`의 `this`는 외부 함수 `user.sayHi()`의 `this`가 된다.
 
-```bash
+```javascript
 let user = {
     firstName = "Yumin",
 

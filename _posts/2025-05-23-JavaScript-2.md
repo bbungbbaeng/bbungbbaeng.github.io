@@ -28,7 +28,7 @@ mermaid: true
 
 아래 예시에선 `window` 객체를 전역 객체로 사용하고 있다.
 
-```bash
+```javascript
 function sayGang() {
     alert("GANG");
 }
@@ -41,7 +41,7 @@ window.sayGang();
 
 아래 예시에서는 `window` 객체가 브라우저 창을 대변하고 있으며, 이를 이용해 창의 높이를 출력한다.
 
-```bash
+```javascript
 alert(window.innerHeight);  // 창 내부(inner window) 높이
 ```
 
@@ -53,10 +53,10 @@ alert(window.innerHeight);  // 창 내부(inner window) 높이
 
 `document` 객체는 페이지의 '기본 진입점' 역할을 한다. `document` 객체를 이용해 페이지 내 그 무엇이든 변경할 수 있고, 원하는 것을 만들 수도 있다.
 
-```bash
+```javascript
 document.body.style.background = "red";
 
-setTimeOut(() => document.body.style.background = "", 1000);
+setTimeout(() => document.body.style.background = "", 1000);
 ```
 
 <br>
@@ -72,7 +72,7 @@ setTimeOut(() => document.body.style.background = "", 1000);
 
 **브라우저 객체 모델(Browser Object Model, BOM)**은 문서 이외의 모든 것을 제어하기 위해 브라우저(호스트 환경)가 제공하는 추가 객체를 나타낸다.
 
-```bash
+```javascript
 alert(location.href);   // 현재 URL을 보여준다.
 
 if (confirm("위키피디아 페이지로 가시겠습니까?")) {
@@ -93,9 +93,9 @@ HTML을 지탱하는 것은 태그(tag)이다.
 
 아래 예시를 실행하면 `<body>`가 3초간 붉은색으로 변경된다.  
 
-```bash
+```javascript
 document.body.style.background = 'red';
-setTimeOut(() => document.body.style.background = '', 3000);
+setTimeout(() => document.body.style.background = '', 3000);
 ```
 
 `document.body`는 `<body>` 태그를 객체로 나타낸 것이다.  
@@ -106,7 +106,7 @@ setTimeOut(() => document.body.style.background = '', 3000);
 
 간단한 예제를 통해 DOM 구조에 대해 알아보자.
 
-```bash
+```html
 <!DOCTYPE HTML>
 
 <html>
@@ -123,7 +123,7 @@ setTimeOut(() => document.body.style.background = '', 3000);
 
 트리에 있는 노드들은 모두 객체이다.  
 
-태그는 요소 노드(element node)이고, 트리 구조를 구성한다. `<html>`은 루트 노드가 되고, `<head>`와 `<body>`는 루트 노트의 자식이 된다.  
+태그는 요소 노드(element node)이고, 트리 구조를 구성한다. `<html>`은 루트 노드가 되고, `<head>`와 `<body>`는 루트 노드의 자식이 된다.  
 
 요소 내의 문자는 텍스트(text) 노드가 된다. 텍스트 노드는 문자열만 담으며, 자식 노드를 가질 수 없고, 트리의 끝에 위치한 잎 노드(leaf node)가 된다.  
 
@@ -160,7 +160,7 @@ setTimeOut(() => document.body.style.background = '', 3000);
 
 DOM 생성 과정에서 브라우저는 문서에 있는 에러, 닫는 태그가 없는 에러 등을 자동으로 처리한다. 
 
-```bash
+```html
 // 닫는 태그가 없는 경우
 
 <p>안녕하세요
@@ -181,7 +181,7 @@ DOM 생성 과정에서 브라우저는 문서에 있는 에러, 닫는 태그�
 
 예를 들어, 주석도 노드가 된다.
 
-```bash
+```html
 <!DOCTYPE HTML>
 <html>
     <body>
@@ -231,7 +231,7 @@ HTML 문서 최상단에 위치하는 `<!DOCTYPE ...>` 지시자 또한 DOM 노�
 - `DOMContentLoaded` : HTML이 전부 로드 및 처리되어 DOM 생성이 완료되었을 때 발생한다.
 
 **CSS 이벤트**
-- `transitioned` : CSS 애니메이션이 종료되었을 때 발생한다.
+- `transitionend` : CSS 애니메이션이 종료되었을 때 발생한다.
 
 <br>
 
@@ -243,12 +243,12 @@ HTML 문서 최상단에 위치하는 `<!DOCTYPE ...>` 지시자 또한 DOM 노�
 
 #### **HTML 속성**
 
-HTMl 안의 `on<event>` 속성에 핸들러를 할당할 수 있다.
+HTML 안의 `on<event>` 속성에 핸들러를 할당할 수 있다.
 
 아래의 예시에선 `input` 태그의 `onclick` 속성에 `click` 핸들러를 할당하는 것을 볼 수 있다.
 
-```bash
-<input value="클릭해주세요." onclick "alert('클릭!')" type="button">
+```html
+<input value="클릭해주세요." onclick="alert('클릭!')" type="button">
 ```
 
 버튼을 클릭하면 `onclick` 안의 코드가 활성화 된다.  
@@ -261,11 +261,11 @@ HTMl 안의 `on<event>` 속성에 핸들러를 할당할 수 있다.
 
 아래의 코드에선, 버튼을 클릭하면 함수 `countRabbits()`이 호출된다.  
 
-```bash
+```html
 <script>
     function countRabbits() {
-        for (let i = 1; i <= 3, i++) {
-            alert('토끼 ${i}마리');
+        for (let i = 1; i <= 3; i++) {
+            alert(`토끼 ${i}마리`);
         }
     }
 </script>
@@ -283,7 +283,7 @@ DOM 속성 `on<event>`를 사용해도 핸들러를 할당할 수 있다.
 
 아래의 코드는 `elem.onclick`을 사용한 예시이다.
 
-```bash
+```html
 <input id="elem" type="button" value="클릭해주세요.">
 <script>
     elem.onclick = function() {
@@ -301,11 +301,11 @@ DOM 속성 `on<event>`를 사용해도 핸들러를 할당할 수 있다.
 아래의 두 예시는 동일하게 작동한다.
 
 1. HTML만 사용하는 방법
-```bash
+```html
 <input type="button" onclick="alert('클릭!')" value="클릭해주세요.">
 ```
 2. HTML과 자바스크립트를 함께 사용하는 방법
-```bash
+```html
 <input type="button" id="button" value="클릭해주세요.">
 <script>
     button.onclick = function() {
@@ -322,7 +322,7 @@ DOM 속성 `on<event>`를 사용해도 핸들러를 할당할 수 있다.
 
 아래 예시와 같이 핸들러를 하나 더 추가하면, 기존 핸들러는 덮어씌워진다.
 
-```bash
+```html
 <input type="button" id="elem" onclick="alert('이전')" value="클릭해주세요.">
 <script>
     elem.onclick = function() {     // 기존에 작성된 핸들러를 덮어썼다.
@@ -341,7 +341,7 @@ DOM 속성 `on<event>`를 사용해도 핸들러를 할당할 수 있다.
 
 아래 예시의 `this.innerHTML`에서 `this`는 `button`이므로, 버튼을 클릭하면 버튼 안의 콘텐츠가 `alert` 창에 출력된다.
 
-```bash
+```html
 <button onclick="alert(this.innerHTML)">클릭해주세요.</button>
 ```
 
@@ -353,7 +353,7 @@ DOM 속성 `on<event>`를 사용해도 핸들러를 할당할 수 있다.
 
 이미 존재하는 함수를 직접 핸들러에 할당하는 예시를 살펴보자.
 
-```bash
+```javascript
 function sayGang() {
     alert('GANG');
 }
@@ -363,7 +363,7 @@ elem.onclick = sayGang;
 
 이 때 함수는 `sayGang`처럼 할당해야 한다. `sayGang()`을 할당하면 동작하지 않는다.
 
-```bash
+```javascript
 // 올바른 방법
 button.onclick = sayGang;
 
@@ -377,7 +377,7 @@ button.onclick = sayGang();
 
 그런데, HTML 속성값에는 괄호가 있어야 한다.
 
-```bash
+```html
 <input type="button" id="button" onclick="sayGang()">
 ```
 
@@ -385,7 +385,7 @@ button.onclick = sayGang();
 
 브라우저는 `onclick` 속성에 새로운 함수를 할당한다.
 
-```bash
+```html
 button.onclick = function() {
     sayGang();  // 속성값
 };
@@ -397,7 +397,7 @@ button.onclick = function() {
 
 따라서 아래의 코드는 동작하지 않는다.
 
-```bash
+```javascript
 // <body>를 클릭하면 에러가 발생한다.
 // 속성은 항상 문자열이기 때문에, 함수가 문자열이 되어버리기 때문이다.
 
@@ -420,7 +420,7 @@ HTML 속성과 DOM 속성을 이용한 이벤트 핸들러 할당 방식엔 근�
 
 이 때, 두 개의 이벤트 핸들러가 필요할 것인데, 기존 방법으로는 속성이 덮어씌워진다는 문제가 존재한다.
 
-```bash
+```javascript
 input.onclick = function() {alert(1);}
 // ...
 input.onclick = function() {alert(1);}  // 이전 핸들러를 덮어쓰게 된다.
@@ -432,7 +432,7 @@ input.onclick = function() {alert(1);}  // 이전 핸들러를 덮어쓰게 된�
 
 문법은 아래와 같다.
 
-```bash
+```javascript
 element.addEventListener(event, handler, [options]);
 ```
 
@@ -448,7 +448,7 @@ element.addEventListener(event, handler, [options]);
 
 핸들러 삭제는 `removeEventListener`로 한다.
 
-```bash
+```javascript
 element.removeEventListener(event, handler, [options]);
 ```
 
@@ -460,7 +460,7 @@ element.removeEventListener(event, handler, [options]);
 >
 > 아래와 같이 이벤트를 할당하고 삭제하면, 원하는 대로 작동하지 않는다.
 >
-> ```bash
+> ```javascript
 > elem.addEventListener("click", () => alert('감사함둥'));
 > // ...
 > elem.removeEventListener("click", () => alert('감사함둥'));
@@ -469,7 +469,7 @@ element.removeEventListener(event, handler, [options]);
 >
 > 위 예시를 제대로 고치면 아래와 같다.
 >
-> ```bash
+> ```javascript
 > function handler() {
 >     alert('감사함둥');
 > } 
@@ -486,7 +486,7 @@ element.removeEventListener(event, handler, [options]);
 
 `addEventListener`를 여러 번 호출하면 아래와 같이 핸들러를 여러 개 붙일 수 있다.
 
-```bash
+```html
 <input id="elem" type="button" value="클릭해주세요."/>
 
 <script>
@@ -512,14 +512,14 @@ element.removeEventListener(event, handler, [options]);
 >
 > 문서를 읽고 DOM 트리 생성이 완료되었을 때 트리거 되는 이벤트인 `DOMContentLoaded`가 대표적인 예시이다.
 >
-> ```bash
+> ```javascript
 > // 이 alert 창은 뜨지 않는다.
 > document.onDOMContentLoaded = function() {
 >     alert("DOM이 완성되었습니다.");
 > }
 > ```
 >
-> ```bash
+> ```javascript
 > // 이 alert 창은 제대로 뜬다.
 > document.addEventListener("DOMContentLoaded", function() {
 >     alert("DOM이 완성되었습니다.");
@@ -539,14 +539,14 @@ element.removeEventListener(event, handler, [options]);
 
 아래는 이벤트 객체로부터 포인터 좌표 정보를 얻어내는 예시이다.
 
-```bash
-<input type="button" value="클릭해주세요." id="elem>
+```html
+<input type="button" value="클릭해주세요." id="elem">
 
 <script>
     elem.onclick = function(event) {
         // 이벤트 타입과 요소, 클릭 이벤트가 발생한 좌표를 보여준다.
         alert(event.type + "이벤트가 " + event.currentTarget + "에서 발생했습니다.");
-        alert("이벤트가 발생한 곳의 좌표는 event.clientX + ":" + event.clientY + "입니다.");
+        alert("이벤트가 발생한 곳의 좌표는" + event.clientX + ":" + event.clientY + "입니다.");
     };
 </script>
 ```
@@ -565,8 +565,8 @@ element.removeEventListener(event, handler, [options]);
 >
 > HTML에서 핸들러를 할당한 경우에도 아래와 같이 `event` 객체를 사용할 수 있다.
 >
-> ```bash
-> <input type"button" onclick="alert(event.type)" value="이벤트 타입">
+> ```html
+> <input type="button" onclick="alert(event.type)" value="이벤트 타입">
 > ```
 >
 > 브라우저는 속성을 읽고 `function(event) {alert(event.type)}` 같은 핸들러를 만들어내기 때문이다. 생성된 핸들러 함수의 첫 번째 인수는 `"event"`라 불리고, 함수 본문은 속성값을 가져온다.
@@ -578,7 +578,7 @@ element.removeEventListener(event, handler, [options]);
 
 `addEventListener`를 사용하면 함수뿐만 아니라 객체를 이벤트 핸들러로 할당할 수 있다. 이벤트가 발생하면 객체에 구현한 `handleEvent` 메서드가 호출된다.
 
-```bash
+```html
 <button id="elem">클릭 좀</button>
 
 <script>
@@ -598,7 +598,7 @@ element.removeEventListener(event, handler, [options]);
 
 클래스를 사용할 수도 있다.
 
-```bash
+```html
 <button id="elem">클릭 좀</button>
 
 <script>
@@ -627,7 +627,7 @@ element.removeEventListener(event, handler, [options]);
 
 `handleEvent` 메서드가 모든 이벤트를 처리할 필요는 없다. 이벤트 관련 메서드를 `handleEvent`에서 호출해서 사용할 수도 있다.
 
-```bash
+```html
 <button id="elem">클릭 좀</button>
 
 <script>
@@ -682,7 +682,7 @@ element.removeEventListener(event, handler, [options]);
 
 - 외부 스크립트 `<script src="...">`가 로드될 때, 이 스크립트를 실행하는 것
 - 사용자가 마우스를 움직일 때 `mousemove` 이벤트와 이벤트 핸들러를 실행하는 것
-- `setTimeOut`에서 설정한 시간이 다 된 경우, 콜백 함수를 실행하는 것
+- `setTimeout`에서 설정한 시간이 다 된 경우, 콜백 함수를 실행하는 것
 - 기타 등등
 
 <br>
@@ -697,11 +697,11 @@ element.removeEventListener(event, handler, [options]);
 
 조금 더 구체적인 사례를 바탕으로 매크로태스크 큐에 대해 알아보자.
 
-엔진이 `script`를 처리하느라 바쁜데, 사용자가 마우스를 움직여 `mousemove` 이벤트를 활성화하고, 바로 이어서 `setTimeOut`에서 설정한 시간이 지났다고 가정해보자.
+엔진이 `script`를 처리하느라 바쁜데, 사용자가 마우스를 움직여 `mousemove` 이벤트를 활성화하고, 바로 이어서 `setTimeout`에서 설정한 시간이 지났다고 가정해보자.
 
 이 때, 세 태스크 큐는 큐에 하나씩 추가되는데, 위 그림에선 이런 상황을 묘사하였다.
 
-큐에 있는 태스크들은 '들어간 순서대로' 처리된다. 엔진은 `script`를 먼저 처리하고, `mousemove` 이벤트와 핸들러, `setTimeOut` 핸들러를 순차적으로 처리한다.
+큐에 있는 태스크들은 '들어간 순서대로' 처리된다. 엔진은 `script`를 먼저 처리하고, `mousemove` 이벤트와 핸들러, `setTimeout` 핸들러를 순차적으로 처리한다.
 
 <br>
 
@@ -724,7 +724,7 @@ CPU 소모가 아주 많은 태스크 하나가 있다고 가정해보자.
 
 먼저, 리팩토링 전의 코드를 살펴보자. 아래 예시를 실행하면, 엔진이 몇 초간 멈춘다. 서버 사이드 환경에서 예시를 실행하면 멈춤 현상이 눈에 잘 띄는데, 숫자 카운팅이 끝나고 `alert` 창이 뜨기 전까진 그 어떤 사용자 이벤트도 처리되지 않는 것을 확인할 수 있다.
 
-```bash
+```javascript
 let i = 0;
 
 let start = Date.now();
@@ -744,9 +744,9 @@ count();
 
 <br>
 
-자, 이제 중첩 `setTimeOut` 호출을 사용해 태스크를 쪼개서 문제를 해결해보자.
+자, 이제 중첩 `setTimeout` 호출을 사용해 태스크를 쪼개서 문제를 해결해보자.
 
-```bash
+```javascript
 let i = 0;
 
 let start = Date.now();
@@ -760,7 +760,7 @@ function count() {
     if (i == 1e9) {
         alert("처리에 걸린 시간: " + (Date.now() - start) + "ms");
     } else {
-        setTimeOut(count);  // 새로운 호출을 스케줄링 (**)
+        setTimeout(count);  // 새로운 호출을 스케줄링 (**)
     }
 }
 
@@ -779,13 +779,13 @@ count();
 
 <br>
 
-그런데 `setTimeOut`을 사용해 태스크를 쪼갠 예시와 그 전의 예시를 비교하면 크지는 않지만 시간차가 어느 정도 있는 것을 볼 수 있다.
+그런데 `setTimeout`을 사용해 태스크를 쪼갠 예시와 그 전의 예시를 비교하면 크지는 않지만 시간차가 어느 정도 있는 것을 볼 수 있다.
 
 코드를 다듬어 시간차를 줄여보도록 하자.
 
 스케줄링 해주는 함수를 `count()` 앞부분으로 옮겨보았다.
 
-```bash
+```javascript
 let i = 0;
 
 let start = Date.now();
@@ -793,7 +793,7 @@ let start = Date.now();
 function count() {
     // 스케줄링 코드를 함수 앞 부분으로 옮겼다.
     if (i < 1e9 - 1e6) {
-        setTimeOut(count);  // 새로운 호출을 스케줄링한다.
+        setTimeout(count);  // 새로운 호출을 스케줄링한다.
     }
 
     do {
@@ -810,7 +810,7 @@ count();
 
 이렇게 코드를 변경하면 `count()`가 호출되고 아직 원하는 숫자를 다 세지 못한 경우, 부분 카운팅이 시작되기 이전에 부분 카운팅 재스케줄링이 이뤄지게 된다.
 
-시간이 단축된 이유는 단순하다. 중첩 `setTimeOut` 호출이 많은 경우에는 브라우저 최소 대기 시간이 `4ms`가 되기 때문이다. 이런 브라우저 스펙 때문에 코드 상으로는 대기 시간이 `0`이더라도 실제 대기 시간은 `4ms`(혹은 그보다 조금 더 긴 시간)가 되는데, 숫자를 세기 전에 스케줄링하면 숫자를 세면서 대기 시간을 소모할 수 있어 실행이 더 빨라지게 되는 것이다.
+시간이 단축된 이유는 단순하다. 중첩 `setTimeout` 호출이 많은 경우에는 브라우저 최소 대기 시간이 `4ms`가 되기 때문이다. 이런 브라우저 스펙 때문에 코드 상으로는 대기 시간이 `0`이더라도 실제 대기 시간은 `4ms`(혹은 그보다 조금 더 긴 시간)가 되는데, 숫자를 세기 전에 스케줄링하면 숫자를 세면서 대기 시간을 소모할 수 있어 실행이 더 빨라지게 되는 것이다.
 
 이렇게 CPU를 잡아먹는 태스크를 여러 개로 쪼개면, 전체 실행 시간을 많이 희생하지 않으면서도 사용자와의 상호작용에 막힘이 없어진다는 장점이 있다.
 
@@ -826,7 +826,7 @@ count();
 
 관련 코드를 살펴보자. 함수가 끝날 때까지 사용자는 `i`가 변하는 것을 볼 수 없다. 화면에는 마지막 상태만 출력된다.
 
-```bash
+```html
 <div id="progress"></div>
 
 <script>
@@ -845,9 +845,9 @@ count();
 
 <br>
 
-이럴 때, `setTimeOut`을 사용해 태스크를 여러 개로 쪼개면, 서브 태스크 중간마다 상태 변화를 볼 수 있다.
+이럴 때, `setTimeout`을 사용해 태스크를 여러 개로 쪼개면, 서브 태스크 중간마다 상태 변화를 볼 수 있다.
 
-```bash
+```html
 <div id="progress"></div>
 
 <script>
@@ -861,7 +861,7 @@ count();
         } while (i % 1e3 != 0);
 
         if (i < 1e7) {
-            setTimeOut(count);
+            setTimeout(count);
         }
     }
 
@@ -875,11 +875,11 @@ count();
 
 ### **Use Case 3: 이벤트 처리가 끝난 이후에 작업하기**
 
-이벤트 핸들러를 만들다 보면 이벤트 버블링이 끝나 모든 DOM 트리 레벨에서 이벤트가 핸들링 될 때까지 특정 액션을 연기시켜야 하는 경우가 생기곤 한다. 이럴 때 연기시킬 액션 관련 코드를 지연 시간이 `0`인 `setTimeOut`으로 감싸면 원하는 동작을 구현할 수 있다.
+이벤트 핸들러를 만들다 보면 이벤트 버블링이 끝나 모든 DOM 트리 레벨에서 이벤트가 핸들링 될 때까지 특정 액션을 연기시켜야 하는 경우가 생기곤 한다. 이럴 때 연기시킬 액션 관련 코드를 지연 시간이 `0`인 `setTimeout`으로 감싸면 원하는 동작을 구현할 수 있다.
 
-아래의 예시처럼 `setTimeOut`을 사용하면 `click` 이벤트가 완전히 핸들링 된 다음에 `menu-open` 이벤트를 디스패칭 할 수 있다.
+아래의 예시처럼 `setTimeout`을 사용하면 `click` 이벤트가 완전히 핸들링 된 다음에 `menu-open` 이벤트를 디스패칭 할 수 있다.
 
-```bash
+```javascript
 menu.onclick = function() {
     // ...
 
@@ -889,7 +889,7 @@ menu.onclick = function() {
     });
 
     // 비동기로 커스텀 이벤트를 디스패칭
-    setTimeOut(() => menu.dispatchEvent(customEvent));
+    setTimeout(() => menu.dispatchEvent(customEvent));
 };
 ```
 
@@ -907,8 +907,8 @@ menu.onclick = function() {
 
 예시를 살펴보자.
 
-```bash
-setTimeOut(() => alert("timeout"));
+```javascript
+setTimeout(() => alert("timeout"));
 
 Promise.resolve()
     .then(() => alert("promise"));
@@ -919,11 +919,11 @@ alert("code");
 `alert` 창에는 아래 순서대로 문자열이 출력된다.
 1. `code` : 일반적인 동기 호출이므로 가장 먼저 매크로태스크 큐에 들어간 후 실행된다.
 2. `promise` : `.then`은 마이크로태스크 큐에 들어가 처리되기 때문에, 현재 코드(`alert("code")`)가 실행되고 난 후에 실행된다.
-3. `timeout` : `setTimeOut`에서 설정한 시간이 끝난 후 콜백 함수를 실행하는 것은 매크로태스크이기 때문에 가장 마지막에 출력된다.
+3. `timeout` : `setTimeout`에서 설정한 시간이 끝난 후 콜백 함수를 실행하는 것은 매크로태스크이기 때문에 가장 마지막에 출력된다.
 
 <br>
 
-매크로태스크와 마이크로태스크 처리 로직을 첨가하면 위에서 본 로직을 조금 더 고도화 할 수 있다. 그림을 위에서부터 아래로 보자. 매크로태스크(`script`, `mousemove`, `setTimeOut` 등) 하나가 처리되고 난 후, 마이크로태스크 전부가 처리되고, 그 이후 렌더링이 진행되는 것을 확인할 수 있다.
+매크로태스크와 마이크로태스크 처리 로직을 첨가하면 위에서 본 로직을 조금 더 고도화 할 수 있다. 그림을 위에서부터 아래로 보자. 매크로태스크(`script`, `mousemove`, `setTimeout` 등) 하나가 처리되고 난 후, 마이크로태스크 전부가 처리되고, 그 이후 렌더링이 진행되는 것을 확인할 수 있다.
 
 ![이벤트 루프 도식화]({{ site.google_drive }}1MfD2269_30HrRFtcVoXU1sf-C50y1lwz&sz=w1000){: .w-50 .normal}  
 
@@ -935,9 +935,9 @@ alert("code");
 
 그런데, 개발을 하다 보면 직접 만든 함수를 현재 코드 실행이 끝난 후, 새로운 이벤트 핸들러가 처리되기 전이면서 렌더링이 실행되기 전에 비동기적으로 실행해야 하는 경우가 생기곤 한다. 이럴 때 `queueMicrotask`를 사용해 커스텀 함수를 스케줄링하면 된다.
 
-앞서 살펴본 '프로그레스 바' 예시에서 `setTimeOut` 대신 `queueMicrotask`를 사용해 함수 `count`를 재스케줄링해 보았다. 예시를 실행하면 동기 코드처럼 카운팅이 다 끝났을 때 숫자가 렌더링 되는 것을 확인할 수 있다.
+앞서 살펴본 '프로그레스 바' 예시에서 `setTimeout` 대신 `queueMicrotask`를 사용해 함수 `count`를 재스케줄링해 보았다. 예시를 실행하면 동기 코드처럼 카운팅이 다 끝났을 때 숫자가 렌더링 되는 것을 확인할 수 있다.
 
-```bash
+```html
 <div id="progress"></div>
 
 <script>
