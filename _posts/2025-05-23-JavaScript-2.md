@@ -19,5 +19,6 @@ mermaid: true
 
 아래 그림은 호스트 환경이 웹 브라우저일 때 사용할 수 있는 기능을 개괄적으로 보여준다.
 
-![Desktop View](https://drive.google.com/uc?export=view&id=1WFnYNn0Q9abyYDYadPOIV2g_MMwm01JB){: width="642" }
+![호스트 환경](https://drive.google.com/uc?export=view&id=1WFnYNn0Q9abyYDYadPOIV2g_MMwm01JB)
 
+![완성이미지](https://drive.google.com/uc?export=view&id=1-dIFvBLumCeSCDlQzOwYvxPNM8jglEz9)
