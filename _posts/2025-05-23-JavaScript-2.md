@@ -49,3 +49,103 @@ alert(window.innerHeight);  // 창 내부(inner window) 높이
 
 ### **문서 객체 모델(DOM)**
 
+**문서 객체 모델(Document Object Model, DOM)**은 웹 페이지 내의 모든 컨텐츠를 객체로 나타내준다.  
+
+`document` 객체는 페이지의 '기본 진입점' 역할을 한다. `document` 객체를 이용해 페이지 내 그 무엇이든 변경할 수 있고, 원하는 것을 만들 수도 있다.
+
+```bash
+document.body.style.background = "red";
+
+setTimeOut(() => document.body.style.background = "", 1000);
+```
+
+> **스타일링을 위한 CSSOM**  
+> CSS 규칙과 스타일시트(stylesheet)는 HTML과 다른 구조를 가진다. 따라서 CSS 규칙과 스타일시트를 객체로 나타내고 이 객체를 어떻게 읽고 쓸 수 있을지에 대한 CSS 객체 모델(CSS Object Model, CSSOM)이 존재한다.
+{: .prompt-tip }
+
+<br>
+
+### **브라우저 객체 모델(BOM)**
+
+**브라우저 객체 모델(Browser Object Model, BOM)**은 문서 이외의 모든 것을 제어하기 위해 브라우저(호스트 환경)가 제공하는 추가 객체를 나타낸다.
+
+```bash
+alert(location.href);   // 현재 URL을 보여준다.
+
+if (confirm("위키피디아 페이지로 가시겠습니까?")) {
+    location.href = "https://wikipedia.org";
+    // 새로운 페이지로 넘어간다.
+}
+```
+
+<br>
+
+## **DOM 트리**
+
+HTML을 지탱하는 것은 태그(tag)이다.  
+
+문서 객체 모델(DOM)에 따르면, 모든 HTML 태그는 객체이다. 태그 하나가 감싸고 있는 '자식' 태그는 중첩 태그(nested tag)라고 부른다. 태그 내의 문자(text) 역시 객체이다.  
+
+이런 모든 객체는 자바스크립트를 통해 접근할 수 있고, 페이지를 조작할 때 이 객체를 사용한다.  
+
+아래 예시를 실행하면 `<body>`가 3초간 붉은색으로 변경된다.  
+
+```bash
+document.body.style.background = 'red';
+setTimeOut(() => document.body.style.background = '', 3000);
+```
+
+`document.body`는 `<body>` 태그를 객체로 나타낸 것이다.  
+
+<br>
+
+### **DOM 예제**
+
+간단한 예제를 통해 DOM 구조에 대해 알아보자.
+
+```bash
+<!DOCTYPE HTML>
+
+<html>
+    <head>
+        <title>사슴에 관하여</title>
+    </head>
+    <body>
+        사슴에 관한 진실.
+    </body>
+</html>
+```
+
+![DOM 트리 예제]({{ site.google_drive }}1Vx853sXPRJupAxSWuPXaI-2FwnFUULg5&sz=w1000){: .w-50 .normal}  
+
+트리에 있는 노드들은 모두 객체이다.  
+
+태그는 요소 노드(element node)이고, 트리 구조를 구성한다. `<html>`은 루트 노드가 되고, `<head>`와 `<body>`는 루트 노트의 자식이 된다.  
+
+요소 내의 문자는 텍스트(text) 노드가 된다. 텍스트 노드는 문자열만 담으며, 자식 노드를 가질 수 없고, 트리의 끝에 위치한 잎 노드(leaf node)가 된다.  
+
+위 그림에서 `<title>` 태그는 `"사슴에 관하여"`라는 텍스트 노드를 자식으로 갖는다.  
+
+텍스트 노드에 있는 특수문자를 주목해보자.  
+
+- 새 줄(new line): `↵` (자바스크립트에서는 `\n`으로 표시)
+- 공백(space): `␣`  
+
+새 줄과 공백은 글자나 숫자처럼 항상 유효한 문자로 취급된다. 따라서 이 두 특수문자는 텍스트 노드가 되고, DOM의 일부가 된다.  
+
+텍스트 노드 생성에는 두 가지 예외가 존재한다.
+
+1. `<head>` 이전의 공백과 새 줄은 무시된다.
+2. 모든 콘텐츠는 `<body>` 안쪽에 있어야 하므로, `</body>` 뒤에 무언가를 넣더라도 그 콘텐츠는 자동으로 `<body>` 안쪽으로 옮겨진다. 따라서, `</body>` 뒤엔 공백이 있을 수 없다.  
+
+> **문자열 양 끝 공백과, 공백만 있는 텍스트 노드는 개발자 도구에서 보이지 않는다.**
+>
+> DOM을 다룰 때 키게 되는 브라우저 개발자 도구에서는 문자 맨 앞이나 끝쪽의 공백과 태그 사이의 새 줄 때문에 만들어지는 비어있는 텍스트 노드가 나타나지 않는다.  
+> 
+> 공백이나 새 줄이 만들어내는 공간은 HTML 문서가 브라우저 상에 어떻게 표현되는지에 대해서 대개는 영향을 끼치지 않기에, 개발자 도구는 이러한 방식으로 화면을 덜 차지하게 만들어졌다.
+{: .prompt-tip }
+
+<br>
+
+### **자동 교정**
+
