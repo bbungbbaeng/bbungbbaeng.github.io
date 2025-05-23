@@ -271,7 +271,7 @@ HTMl 안의 `on<event>` 속성에 핸들러를 할당할 수 있다.
 <input value="토끼를 세봅시다!" onclick="countRabbits()" type="button">
 ```
 
-HTML 속성을 대·소문자를 구분하지 않기 때문에, `ONCLICK`은 `onClick`이나 `onCLICK`과 동일하게 작동한다. 하지만 속성값은 대개 `onclick` 같이 소문자로 작성한다.
+HTML 속성은 대·소문자를 구분하지 않기 때문에, `ONCLICK`은 `onClick`이나 `onCLICK`과 동일하게 작동한다. 하지만 속성값은 대개 `onclick` 같이 소문자로 작성한다.
 
 <br>
 
@@ -369,4 +369,205 @@ button.onclick = sayGang;
 // 틀린 방법
 button.onclick = sayGang();
 ```
+
+`sayGang()` 같이 괄호를 덧붙이는 것은 함수를 호출하겠다는 것을 의미한다. 위 예시의 마지막 줄처럼 `sayGang()`을 속성에 할당하면 함수 호출의 결과값이 할당된다. 함수 `sayGang`이 아무것도 반환하지 않는다면 `onclick` 속성엔 `undefined`가 할당되므로 이벤트가 원하는 대로 동작하지 않는다.
+
+<br>
+
+그런데, HTML 속성값에는 괄호가 있어야 한다.
+
+```bash
+<input type="button" id="button" onclick="sayGang()">
+```
+
+브라우저는 속성값을 읽고, 속성값을 함수 본문으로 하는 핸들러 함수를 만들기 때문에 이런 차이가 발생한다. 
+
+브라우저는 `onclick` 속성에 새로운 함수를 할당한다.
+
+```bash
+button.onclick = function() {
+    sayGang();  // 속성값
+};
+```
+
+<br>
+
+`setAttribute`로 핸들러를 할당해선 안된다.
+
+따라서 아래의 코드는 동작하지 않는다.
+
+```bash
+// <body>를 클릭하면 에러가 발생한다.
+// 속성은 항상 문자열이기 때문에, 함수가 문자열이 되어버리기 때문이다.
+
+document.body.setAttribute('onclick', function() {alert(1)});
+```
+
+<br>
+
+<u>DOM 속성은 대·소문자를 구분한다.</u>
+
+핸들러 할당 시 `elem.onclick`은 괜찮지만, `elem.ONCLICK`은 안된다. DOM 속성은 대·소문자를 구분하기 때문이다.
+
+<br>
+
+### **addEventListener**
+
+HTML 속성과 DOM 속성을 이용한 이벤트 핸들러 할당 방식엔 근본적인 문제가 존재한다. 하나의 이벤트에 복수의 핸들러를 할당할 수 없다는 문제이다.
+
+버튼을 클릭하면 버튼을 강조하면서 메시지를 보여주고 싶다고 해보자.
+
+이 때, 두 개의 이벤트 핸들러가 필요할 것인데, 기존 방법으로는 속성이 덮어씌워진다는 문제가 존재한다.
+
+```bash
+input.onclick = function() {alert(1);}
+// ...
+input.onclick = function() {alert(1);}  // 이전 핸들러를 덮어쓰게 된다.
+```
+
+<br>
+
+웹 표준에 관여하는 개발자들은 오래전부터 이 문제를 인지하고, `addEventListener`와 `removeEventListener`라는 특별한 메서드를 이용해 핸들러를 관리하자는 대안을 제시했다. 
+
+문법은 아래와 같다.
+
+```bash
+element.addEventListener(event, handler, [options]);
+```
+
+- `event` : 이벤트 이름 (ex. `click`)
+- 'handler` : 핸들러 함수
+- `options` : 아래 속성을 갖는 객체
+
+    - `once` : `true`이면 이벤트가 트리거 될 때 리스너가 자동으로 삭제된다.
+    - `capture` : 어느 단계에서 이벤트를 다뤄야 하는지를 알려주는 속성이다. 호환성 유지를 위해 `options`를 객체가 아닌 `false/true`로 할당하는 것이 가능한데, 이는 `{capture: false/true}와 동일하다.
+    - `passive`: `true`이면 리스너에서 지정한 함수가 `preventDefault()`를 호출하지 않는다.
+  
+<br>
+
+핸들러 삭제는 `removeEventListener`로 한다.
+
+```bash
+element.removeEventListener(event, handler, [options]);
+```
+
+> **삭제는 동일한 함수만 할 수 있다.**
+>
+> 핸들러를 삭제하려면 핸들러 할당 시 사용한 함수를 그대로 전달해주어야 한다.
+>
+> 아래와 같이 이벤트를 할당하고 삭제하면, 원하는 대로 작동하지 않는다.
+>
+> ```bash
+> elem.addEventListener("click", () => alert('감사함둥'));
+> // ...
+> elem.removeEventListener("click", () => alert('감사함둥'));
+> ```
+> `removeEventListener`를 사용했지만, 핸들러는 지워지지 않는다. `removeEventListener`가 `addEventListener`를 사용해 할당한 함수와 다른 함수를 받고 있기 때문이다. 함수는 똑같이 생겼지만, 그럼에도 불구하고 다른 함수이기 때문에 이런 문제가 발생한다.
+>
+> 위 예시를 제대로 고치면 아래와 같다.
+>
+> ```bash
+> function handler() {
+>     alert('감사함둥');
+> } 
+>
+> elem.addEventListener("click", handler);
+> // ...
+> elem.removeEventListener("click", handler);
+> ```
+>
+> 변수에 핸들러 함수를 저장해 놓지 않으면 핸들러를 지울 수 없다는 것을 주의해야 한다. 이렇게 하지 않으면, `addEventListener`로 할당한 핸들러를 불러올 수 없다.
+{: .prompt-danger}
+
+<br>
+
+`addEventListener`를 여러 번 호출하면 아래와 같이 핸들러를 여러 개 붙일 수 있다.
+
+```bash
+<input id="elem" type="button" value="클릭해주세요."/>
+
+<script>
+    function handler1() {
+        alert('감사함둥');
+    }
+
+    function handler2() {
+        alert('정말 감사함둥');
+    }
+
+    elem.onclick = () => alert("반갑슴둥");
+    elem.addEventListener("click", handler1);   // 감사함둥
+    elem.addEventListener("click", handler2);   // 정말 감사함둥
+</script>
+```
+
+<br>
+
+> **어떤 이벤트는 `addEventListener`를 써야만 동작한다.**
+>
+> DOM 속성에 할당할 수 없는 이벤트가 몇몇 존재한다. 이런 이벤트는 무조건 `addEventListener`를 써야 한다. 
+>
+> 문서를 읽고 DOM 트리 생성이 완료되었을 때 트리거 되는 이벤트인 `DOMContentLoaded`가 대표적인 예시이다.
+>
+> ```bash
+> // 이 alert 창은 뜨지 않는다.
+> document.onDOMContentLoaded = function() {
+>     alert("DOM이 완성되었습니다.");
+> }
+> ```
+>
+> ```bash
+> // 이 alert 창은 제대로 뜬다.
+> document.addEventListener("DOMContentLoaded", function() {
+>     alert("DOM이 완성되었습니다.");
+> });
+> ```
+>
+> 이처럼 `addEventListener`는 좀 더 범용적이다.
+{: .prompt-warning}
+
+<br>
+
+### **이벤트 객체**
+
+이벤트를 제대로 다루려면 어떤 일이 일어났는지 상세히 알아야 한다. `click` 이벤트가 발생했다면 마우스 포인터가 어디에 있는지, `keydown` 이벤트가 발생했다면 어떤 키가 눌렸는지 등에 대한 상세한 정보가 필요하다.
+
+이벤트가 발생하면 브라우저는 **이벤트 객체(event object)**라는 것을 만든다. 여기에 이벤트에 관한 상세한 정보를 넣은 다음, 핸들러에 인수 형태로 전달한다.
+
+아래는 이벤트 객체로부터 포인터 좌표 정보를 얻어내는 예시이다.
+
+```bash
+<input type="button" value="클릭해주세요." id="elem>
+
+<script>
+    elem.onclick = function(event) {
+        // 이벤트 타입과 요소, 클릭 이벤트가 발생한 좌표를 보여준다.
+        alert(event.type + "이벤트가 " + event.currentTarget + "에서 발생했습니다.");
+        alert("이벤트가 발생한 곳의 좌표는 event.clientX + ":" + event.clientY + "입니다.");
+    };
+</script>
+```
+
+<br>
+
+`event` 객체에서 지원하는 속성 중 일부는 다음과 같다.
+
+- `event.type` : 이벤트 타입, 위의 예시에선 `"click"`.
+- `event.currentTarget` : 이벤트를 처리하는 요소이다. 화살표 함수를 통해 핸들러를 만들거나 다른 곳에 바인딩하지 않은 경우에는 `this`가 가리키는 값과 같다. 화살표 함수를 사용했거나 함수를 다른 곳에 바인딩한 경우에는 `event.currentTarget`를 사용해 이벤트가 처리되는 요소 정보를 얻을 수 있다.
+- `event.clientX / event.clientY` : 포인터 관련 이벤트에서, 커서의 상대 좌표(모니터 기준 좌표가 아닌, 브라우저 화면 기준 좌표)이다.
+
+> **이벤트 객체는 HTML 핸들러에서도 접근할 수 있다.**
+>
+> HTML에서 핸들러를 할당한 경우에도 아래와 같이 `event` 객체를 사용할 수 있다.
+>
+> ```bash
+> <input type"button" onclick="alert(event.type)" value="이벤트 타입">
+> ```
+>
+> 브라우저는 속성을 읽고 `function(event) {alert(event.type)}` 같은 핸들러를 만들어내기 때문이다. 생성된 핸들러 함수의 첫 번째 인수는 `"event"`라 불리고, 함수 본문은 속성값을 가져온다.
+{: .prompt-tip}
+
+<br>
+
+### **객체 형태의 핸들러와 handleEvent**
 
