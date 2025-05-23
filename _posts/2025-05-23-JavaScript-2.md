@@ -301,9 +301,10 @@ DOM 속성 `on<event>`를 사용해도 핸들러를 할당할 수 있다.
 아래의 두 예시는 동일하게 작동한다.
 
 1. HTML만 사용하는 방법
-
+```bash
+<input type="button" onclick="alert('클릭!')" value="클릭해주세요.">
+```
 2. HTML과 자바스크립트를 함께 사용하는 방법
-
 ```bash
 <input type="button" id="button" value="클릭해주세요.">
 <script>
