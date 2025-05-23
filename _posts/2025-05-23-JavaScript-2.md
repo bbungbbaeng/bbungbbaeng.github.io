@@ -242,3 +242,97 @@ HTML 문서 최상단에 위치하는 `<!DOCTYPE ...>` 지시자 또한 DOM 노�
 #### **HTML 속성**
 
 HTMl 안의 `on<event>` 속성에 핸들러를 할당할 수 있다.
+
+아래의 예시에선 `input` 태그의 `onclick` 속성에 `click` 핸들러를 할당하는 것을 볼 수 있다.
+
+```bash
+<input value="클릭해주세요." onclick "alert('클릭!')" type="button">
+```
+
+버튼을 클릭하면 `onclick` 안의 코드가 활성화 된다.  
+
+여기서 주의해야 할 것은 속성값 내에서 사용된 따옴표이다. 속성값 전체가 큰따옴표로 둘러싸여 있기 때문에 작은 따옴표로 둘러쌓인 모습을 볼 수 있다. `onclick="alert("클릭!")"`과 같이 속성값 내부에 또 큰따옴표를 쓰면 코드가 작동하지 않는다.  
+
+긴 코드를 HTML 속성값으로 사용하는 것은 추천되지 않는다. 만약 코드가 길다면, 함수를 만들어서 이를 호출하는 방법이 추천된다.  
+
+<br>
+
+아래의 코드에선, 버튼을 클릭하면 함수 `countRabbits()`이 호출된다.  
+
+```bash
+<script>
+    function countRabbits() {
+        for (let i = 1; i <= 3, i++) {
+            alert('토끼 ${i}마리');
+        }
+    }
+</script>
+
+<input value="토끼를 세봅시다!" onclick="countRabbits()" type="button">
+```
+
+HTML 속성을 대·소문자를 구분하지 않기 때문에, `ONCLICK`은 `onClick`이나 `onCLICK`과 동일하게 작동한다. 하지만 속성값은 대개 `onclick` 같이 소문자로 작성한다.
+
+<br>
+
+#### **DOM 속성**
+
+DOM 속성 `on<event>`를 사용해도 핸들러를 할당할 수 있다.  
+
+아래의 코드는 `elem.onclick`을 사용한 예시이다.
+
+```bash
+<input id="elem" type="button" value="클릭해주세요.">
+<script>
+    elem.onclick = function() {
+        alert('감사합니다.');
+    };
+</script>
+```
+
+핸들러를 HTML 속성을 사용해 할당하면, 브라우저는 속성값을 이용해 새로운 함수를 만든다. 그리고 생성된 함수를 DOM 속성에 할당한다.  
+
+따라서 DOM 속성을 사용해 핸들러를 만든 위 예시는 HTML 속성을 사용해 만든 바로 위쪽 예시와 동일하게 작동한다.
+
+아래의 두 예시는 동일하게 작동한다.
+
+1. HTML만 사용하는 방법
+
+```bash
+<input type="button" onclick="alert('클릭!')" value="클릭해주세요.">
+```
+
+2. HTML과 자바스크립트를 함께 사용하는 방법
+
+```bash
+<input type="button" id="button" value="클릭해주세요.">
+<script>
+    button.onclick = function() {
+        alert('클릭!');
+    };
+</script>
+```
+
+두 예시의 유일한 차이점은, 첫 번째 예시에서는 HTML 속성을 사용해 `button.onclick`을 초기화하고, 두 번째 예시에서는 스크립트를 사용한다는 것이다.
+
+<br>
+
+`onclick` 속성은 단 하나밖에 없기 때문에, 복수의 이벤트 핸들러를 할당할 수 없다.
+
+아래 예시와 같이 핸들러를 하나 더 추가하면, 기존 핸들러는 덮어씌워진다.
+
+```bash
+<input type="button" id="elem" onclick="alert('이전')" value="클릭해주세요.">
+<script>
+    elem.onclick = function() {     // 기존에 작성된 핸들러를 덮어썼다.
+        alert('이후');              // 따라서 이 경고창만 보이게 된다.
+    };
+</script>
+```
+
+핸들러를 제거하고 싶다면 `elem.onclick = null`과 같이 `null`을 할당하면 된다.
+
+<br>
+
+### **this로 요소에 접근하기**
+
