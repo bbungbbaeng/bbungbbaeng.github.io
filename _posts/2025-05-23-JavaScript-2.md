@@ -579,3 +579,91 @@ element.removeEventListener(event, handler, [options]);
 
 ### **객체 형태의 핸들러와 handleEvent**
 
+`addEventListener`를 사용하면 함수뿐만 아니라 객체를 이벤트 핸들러로 할당할 수 있다. 이벤트가 발생하면 객체에 구현한 `handleEvent` 메서드가 호출된다.
+
+```bash
+<button id="elem">클릭 좀</button>
+
+<script>
+    let obj = {
+        handleEvent(event) {
+            alert(event.type + "이벤트가 " + event.currentTarget + "에서 발생했습니다.");
+        }
+    };
+
+    elem.addEventListener('click', obj);
+</script>
+```
+
+보다시피 `addEventListener`가 인수로 객체 형태의 핸들러를 받으면 이벤트 발생 시 `obj.handleEvent(event)`가 호출된다.
+
+<br>
+
+클래스를 사용할 수도 있다.
+
+```bash
+<button id="elem">클릭 좀</button>
+
+<script>
+    class Menu {
+        handleEvent(event) {
+            switch(event.type) {
+                case 'mousedown':
+                    elem.innerHTML = "마우스 버튼을 눌렀습니다.";
+                    break;
+                case 'mouseup':
+                    elem.innerHTML += " 그리고 버튼을 뗐습니다.";
+                    break;
+            }
+        }
+    }
+
+    let menu = new Menu();
+    elem.addEventListener('mousedown', menu);
+    elem.addEventListener('mouseup', menu);
+</script>
+```
+
+위 예시에선 하나의 객체에서 두 개의 이벤트를 처리하고 있다. 이 때 주의할 점은 `addEventListener`를 사용할 때는 요소에 타입을 정확히 명시해 주어야 한다는 점이다. 위 예시에서 `menu` 객체는 오직 `mousedown`과 `mouseup` 이벤트에만 응답하고, 다른 타입의 이벤트에는 응답하지 않는다.
+
+<br>
+
+`handleEvent` 메서드가 모든 이벤트를 처리할 필요는 없다. 이벤트 관련 메서드를 `handleEvent`에서 호출해서 사용할 수도 있다.
+
+```bash
+<button id="elem">클릭 좀</button>
+
+<script>
+    class Menu() {
+        handleEvent(event) {
+            // mousedown -> onMousedown
+            let method = 'on' + event.type[0].toUpperCase() + event.type.slice(1);
+            this[method](event);
+        }
+
+        onMousedown() {
+            elem.innerHTML = "마우스 버튼을 눌렀습니다.";
+        }
+
+        onMouseUp() {
+            elem.innerHTML += " 그리고 버튼을 뗐습니다.";
+        }
+    }
+
+    let menu = new Menu();
+    elem.addEventListener('mousedown', menu);
+    elem.addEventListener('mouseup', menu);
+</script>
+```
+
+이벤트 핸들러가 명확히 분리되었기 때문에 코드 변경이 원활해졌음을 알 수 있다.
+
+<br>
+
+## **이벤트 루프와 매크로태스크, 마이크로태스크**
+
+브라우저 측 자바스크립트 실행 흐름은 Node.js와 마찬가지로 이벤트 루프에 기반한다.
+
+따라서 이벤트 루프가 어떻게 동작하는지 알고 있어야 최적화나 올바른 아키텍쳐 설계가 가능해진다.
+
+### **이벤트 루프**
