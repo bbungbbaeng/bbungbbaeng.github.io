@@ -740,3 +740,114 @@ user = {
 
 ### **this**
 
+메서드 내부에서 `this` 키워드를 사용하면 객체에 접근할 수 있다. 이 때, '점(.) 앞'의 `this`는 메서드를 호출할 때 사용된 객체를 나타낸다.
+
+```bash
+let user = {
+    name: "Yumin",
+    age: 25
+
+    sayName() {
+        // 'this'는 '현재 객체'를 나타낸다.
+        alert(this.name);
+    }
+};
+
+user.sayName(); // Yumin
+```
+
+<br>
+
+`this`를 사용하지 않고 외부 변수를 참조해 객체에 접근하는 것도 가능하다.
+
+```bash
+let user = {
+    name: "Yumin",
+    age: 25
+
+    sayName() {
+        // 'this' 대신 'user'를 이용했다.
+        alert(user.name);
+    }
+};
+```
+
+<br>
+
+그러나, 외부 변수를 사용해 객체를 참조하면 예상치 못한 에러가 발생할 수 있다. `user`를 복사해 다른 변수에 할당(`admin = user`)하고, `user`는 전혀 다른 값으로 덮어썼다고 가정해보자.
+
+```bash
+let user = {
+    name: "Yumin",
+    age: 25
+
+    sayName() {
+        alert(user.name);   // Error: Cannot read property 'name' of null
+    }
+};
+
+let admin = user;
+user = null;    // user를 null로 덮어쓴다.
+
+admin.sayName();    // 에러 발생
+```
+
+`sayGang()`은 원치 않는 값(`null`)을 참조하게 된다.
+
+<br>
+
+### **자유로운 this**
+
+자바스크립트에서는 다른 프로그래밍 언어와 달리 모든 함수에 `this`를 사용할 수 있다. 그렇기 때문에 아래와 같이 코드를 작성해도 문법 에러가 발생하지 않는다.
+
+```bash
+function sayName() {
+    alert(this.name);
+}
+```
+
+<br>
+
+동일한 함수라도 다른 객체에서 호출했다면 `this`가 참조하는 값이 달라진다.
+
+```bash
+let user = {name: "Yumin"};
+let admin = {name: "bbungbbaeng"};
+
+function sayName() {
+    alert(this.name);
+}
+
+// 별개의 객체에서 동일한 함수를 사용한다.
+user.f = sayGang;
+admin.f = sayGang;
+
+// 'this'는 '점(.) 앞'의 객체를 참조하기 때문에 각각의 'this' 값이 달라진다.
+user.f();   // Yumin (this == user)
+admin.f();  // bbungbbaeng (this == admin)
+```
+
+<br>
+
+### **this가 없는 화살표 함수**
+
+화살표 함수는 일반 함수와 달리 '고유한' `this`를 가지지 않는다. 화살표 함수에서 `this`를 참조하면, 화살표 함수가 아닌 '평범한' 외부 함수에서 `this` 값을 가져온다. 아래 예시에서 함수 `arrow()`의 `this`는 외부 함수 `user.sayHi()`의 `this`가 된다.
+
+```bash
+let user = {
+    firstName = "Yumin",
+
+    sayName() {
+        let arrow = () => alert(this.firstName);
+        arrow();
+    }
+};
+
+user.sayName(); // Yumin
+```
+
+별개의 `this`가 만들어지는 건 원하지 않고, 외부에 있는 `this`를 이용하고 싶은 경우 화살표 함수가 유용할 수 있다.
+
+<br>
+
+## **참조에 의한 객체 복사**
