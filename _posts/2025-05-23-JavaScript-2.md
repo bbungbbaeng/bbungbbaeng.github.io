@@ -59,6 +59,8 @@ document.body.style.background = "red";
 setTimeOut(() => document.body.style.background = "", 1000);
 ```
 
+<br>
+
 > **스타일링을 위한 CSSOM**  
 > 
 > CSS 규칙과 스타일시트(stylesheet)는 HTML과 다른 구조를 가진다. 따라서 CSS 규칙과 스타일시트를 객체로 나타내고 이 객체를 어떻게 읽고 쓸 수 있을지에 대한 CSS 객체 모델(CSS Object Model, CSSOM)이 존재한다.
@@ -293,6 +295,8 @@ DOM 속성 `on<event>`를 사용해도 핸들러를 할당할 수 있다.
 핸들러를 HTML 속성을 사용해 할당하면, 브라우저는 속성값을 이용해 새로운 함수를 만든다. 그리고 생성된 함수를 DOM 속성에 할당한다.  
 
 따라서 DOM 속성을 사용해 핸들러를 만든 위 예시는 HTML 속성을 사용해 만든 바로 위쪽 예시와 동일하게 작동한다.
+
+<br>
 
 아래의 두 예시는 동일하게 작동한다.
 
@@ -555,6 +559,8 @@ element.removeEventListener(event, handler, [options]);
 - `event.type` : 이벤트 타입, 위의 예시에선 `"click"`.
 - `event.currentTarget` : 이벤트를 처리하는 요소이다. 화살표 함수를 통해 핸들러를 만들거나 다른 곳에 바인딩하지 않은 경우에는 `this`가 가리키는 값과 같다. 화살표 함수를 사용했거나 함수를 다른 곳에 바인딩한 경우에는 `event.currentTarget`를 사용해 이벤트가 처리되는 요소 정보를 얻을 수 있다.
 - `event.clientX / event.clientY` : 포인터 관련 이벤트에서, 커서의 상대 좌표(모니터 기준 좌표가 아닌, 브라우저 화면 기준 좌표)이다.
+
+<br>
 
 > **이벤트 객체는 HTML 핸들러에서도 접근할 수 있다.**
 >
