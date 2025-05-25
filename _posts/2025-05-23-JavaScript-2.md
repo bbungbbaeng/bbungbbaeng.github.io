@@ -712,7 +712,7 @@ element.removeEventListener(event, handler, [options]);
 
 <br>
 
-### Use Case 1: CPU 소모가 많은 태스크 쪼개기
+### **Use Case 1: CPU 소모가 많은 태스크 쪼개기**
 
 CPU 소모가 아주 많은 태스크 하나가 있다고 가정해보자.
 
@@ -816,7 +816,7 @@ count();
 
 <br>
 
-### Use Case 2: 프로그레스 바
+### **Use Case 2: 프로그레스 바**
 
 태스크를 여러 개로 쪼갤 때의 장점은 진행 상태를 나타내주는 프로그레스 바(progress bar)를 만들 때도 드러난다.
 
